@@ -11,6 +11,8 @@ const Container = styled.div`
 
 function Stack() {
     const [elements, setElements] = useState<number[]>([1,2,3]);
+    const [numberOfOperations, setNumberOfOperations] = useState(0);
+    const [actionPending, setActionPending] = useState("");
 
     useEffect(() => {
         AppController.onPush = push;
@@ -19,19 +21,39 @@ function Stack() {
 
     const push = (value: number) => {
         setElements( prevElements => [value, ...prevElements]);
+        setNumberOfOperations(i => i + 1);
+
+        setActionPending("push");
+        AppController.stack.lock();
+
+        setTimeout(() => {
+            setActionPending("");
+            AppController.stack.unlock();
+        }, 1000);
     }
 
     const pop = () => {
-        setElements(prevElements => {
-            prevElements.splice(0, 1);
-            return [...prevElements];
-        });
+        setActionPending("pop");
+        AppController.stack.lock();
+
+        setTimeout(() => {
+            setActionPending("");
+            AppController.stack.unlock();
+            setElements(prevElements => {
+                prevElements.splice(0, 1);
+                return [...prevElements];
+            });
+        }, 1000);
+
+        setNumberOfOperations(i => i + 1);
     }
 
     return(
         <Container onClick={pop}>
+            Action: {actionPending}
             {
-                elements.map(element => <StackElement value={element} />)
+                elements.map((element, index) =>
+                    <StackElement index={index} actionPending={actionPending} key={index + "-" + numberOfOperations} value={element} />)
             }
         </Container>
     )
