@@ -1,3 +1,5 @@
+import AppController from "../AppController/AppController";
+
 class StackStructure {
     elements: number[];
     isUnlimited: boolean;
@@ -11,10 +13,12 @@ class StackStructure {
 
     push(value: number) {
         this.elements.push(value);
+
+        AppController.onPush(value);
     }
 
     pop() {
-
+        AppController.onPop();
     }
 }
 
