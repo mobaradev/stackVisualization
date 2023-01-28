@@ -21,6 +21,12 @@ const NumberInput = styled.input`
   &:focus {
     outline-style: dotted;
   }
+  
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
 `;
 
 export default NumberInput;
