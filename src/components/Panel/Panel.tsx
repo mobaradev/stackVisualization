@@ -5,6 +5,8 @@ import Center from "../Base/Center/Center";
 import Separator from "../Separator/Separator";
 import Clearfix from "../Base/Clearfix/Clearfix";
 import Subsection from "../Subsection/Subsection";
+import AppController from "../../logic/AppController/AppController";
+import {useState} from "react";
 
 const Container = styled.div`
   width: 240px;
@@ -27,14 +29,20 @@ const Wrapper = styled.div`
 `;
 
 function Panel() {
+    const [valueInput, setValueInput] = useState<string>("1");
+
+    const parseValueInput = (valueInput: string): number => {
+        return parseFloat(valueInput) ? parseFloat(valueInput) : 0;
+    }
+
     return(
         <Container>
             <Wrapper>
                 <Center>
-                    <NumberInput />
+                    <NumberInput onChange={(e) => setValueInput((e.target.value.replace(/\D/,'')))} value={valueInput} />
                 </Center>
-                <Button>Push</Button>
-                <Button>Pop</Button>
+                <Button onClick={() => AppController.stack.push(parseValueInput(valueInput))}>Push</Button>
+                <Button onClick={() => AppController.stack.pop()}>Pop</Button>
                 <Clearfix />
                 <Separator />
                 <Subsection title="Statistics">test</Subsection>
