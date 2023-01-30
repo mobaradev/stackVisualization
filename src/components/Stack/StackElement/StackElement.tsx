@@ -4,17 +4,27 @@ import {useEffect, useState} from "react";
 const Container = styled.div<{visibilityLevel: 0 | 1, isTransition: boolean}>`
   width: 120px;
   height: 60px;
-  background-color: aquamarine;
+  background-color: #8fe0ff;
   border-radius: 12px;
   margin: 8px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #41866e;
+  position: relative;
+  box-shadow: 0px 0 8px #cecbcb;
 
   opacity: ${props => props.visibilityLevel};
   transform: scale(${props => props.visibilityLevel});
   transition: ${props => props.isTransition ? "transform 1s, opacity 1s" : "none"};
+`;
+
+const Text = styled.div`
+  position: absolute;
+  bottom: 2px;
+  right: 8px;
+  font-size: 36px;
+  font-weight: bold;
+  text-shadow: white 0px 0 10px;
 `;
 
 function StackElement(props: any) {
@@ -47,7 +57,7 @@ function StackElement(props: any) {
 
     return(
         <Container visibilityLevel={visibilityLevel} isTransition={isTransition}>
-            {props.value}
+            <Text>{props.value}</Text>
         </Container>
     )
 
