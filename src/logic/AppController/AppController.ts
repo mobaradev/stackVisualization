@@ -4,6 +4,7 @@ class AppController {
     static stack: StackStructure;
     static onPush: (value: number) => void;
     static onPop: () => void;
+    static onStackReload: () => void;
 
     static init() {
         AppController.stack = new StackStructure();
