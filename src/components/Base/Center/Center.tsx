@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 function Center(props: any) {
     return(
-        <Container>
+        <Container style={props.style ? props.style : null}>
             <Wrapper>
                 {props.children}
             </Wrapper>
