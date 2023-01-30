@@ -17,7 +17,7 @@ function AboutView(props: any) {
 
     return(
         <Screen screenId={1}>
-            <ScreenCloseButton onClick={() => appContext.setScreenVisibility(1, false)}>x</ScreenCloseButton>
+            <ScreenCloseButton onClick={() => appContext.setScreenVisibility(1, false)} />
             <Wrapper>
                 <Center>
                     <LogoFull />
