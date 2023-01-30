@@ -6,7 +6,8 @@ import Separator from "../Separator/Separator";
 import Clearfix from "../Base/Clearfix/Clearfix";
 import Subsection from "../Subsection/Subsection";
 import AppController from "../../logic/AppController/AppController";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AppContext} from "../../App";
 
 const Container = styled.div`
   width: 240px;
@@ -31,6 +32,8 @@ const Wrapper = styled.div`
 function Panel() {
     const [valueInput, setValueInput] = useState<string>("1");
 
+    const appContext = useContext(AppContext);
+
     const parseValueInput = (valueInput: string): number => {
         return parseFloat(valueInput) ? parseFloat(valueInput) : 0;
     }
@@ -39,13 +42,16 @@ function Panel() {
         <Container>
             <Wrapper>
                 <Center>
-                    <NumberInput onChange={(e) => setValueInput((e.target.value.replace(/\D/,'')))} value={valueInput} />
+                    <NumberInput onChange={(e) => setValueInput((e.target.value.replace(/\D/,'')))} value={valueInput} maxLength={4} />
                 </Center>
                 <Button onClick={() => AppController.stack.push(parseValueInput(valueInput))}>Push</Button>
                 <Button onClick={() => AppController.stack.pop()}>Pop</Button>
                 <Clearfix />
                 <Separator />
                 <Subsection title="Statistics">test</Subsection>
+                <Clearfix />
+                <Separator />
+                <Button onClick={() => appContext.setScreenVisibility(1, true)}>About</Button>
             </Wrapper>
         </Container>
     )
