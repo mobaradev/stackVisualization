@@ -1,15 +1,29 @@
 import AppController from "../AppController/AppController";
+import Random from "../Random/Random";
 
 class StackStructure {
     elements: number[];
-    isUnlimited: boolean;
     isLocked: boolean = false;
 
-    constructor(size?: number) {
+    constructor() {
         this.elements = [];
 
-        this.isUnlimited = (size ? true : false); // if size is defined, then the stack is not unlimited
+        this.reload();
+    }
 
+    randomize() {
+        const n = Random.getRandomNumber(2, 8);
+        for (let i = 0; i < n; i++) {
+            this.elements.push(Random.getRandomNumber(0, 50));
+        }
+        console.log('randomized')
+        this.reload();
+    }
+
+    reload() {
+        setTimeout(() => {
+            AppController.onStackReload();
+        });
     }
 
     push(value: number) {
