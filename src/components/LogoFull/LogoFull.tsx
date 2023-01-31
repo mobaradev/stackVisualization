@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import A from "../Base/A/A";
 
 const Container = styled.div`
   text-align: center;
@@ -7,25 +8,18 @@ const Container = styled.div`
 
 const H1 = styled.h1`
   font-size: 38px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 `;
 
 const P = styled.p`
-  margin-top: 0px;
+  margin-top: 0;
   text-align: right;
 `;
 
-const A = styled.a`
-  color: black;
-  font-weight: bold;
-  font-style: normal;
-  text-decoration: none;
-`;
-
-function LogoFull(props: any) {
+function LogoFull() {
     return(
         <Container>
-            <H1>Stack Visualizer</H1>
+            <H1>Stack Visualization</H1>
             <P>
                 by <A href="https://github.com/mobaradev" target="_blank">mobaradev</A>
             </P>
