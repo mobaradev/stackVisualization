@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
 
-const Container = styled.div<{visibilityLevel: 0 | 1, isTransition: boolean}>`
+const Container = styled.div<{visibilityLevel: 0 | 1, isTransition: boolean, isMarked: boolean}>`
   width: 120px;
   height: 60px;
-  background-color: #8fe0ff;
+  background-color: ${props => props.isMarked ? "#ffc663" : "#8fe0ff"};
   border-radius: 12px;
   margin: 8px 0;
   display: flex;
@@ -15,7 +15,7 @@ const Container = styled.div<{visibilityLevel: 0 | 1, isTransition: boolean}>`
 
   opacity: ${props => props.visibilityLevel};
   transform: scale(${props => props.visibilityLevel});
-  transition: ${props => props.isTransition ? "transform 1s, opacity 1s" : "none"};
+  transition: ${props => props.isTransition ? "transform 1s, opacity 1s, background-color 1s" : "background-color 1s"};
 `;
 
 const Text = styled.div`
@@ -56,7 +56,7 @@ function StackElement(props: any) {
 
 
     return(
-        <Container visibilityLevel={visibilityLevel} isTransition={isTransition}>
+        <Container visibilityLevel={visibilityLevel} isTransition={isTransition} isMarked={props.isMarked}>
             <Text>{props.value}</Text>
         </Container>
     )
