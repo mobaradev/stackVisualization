@@ -37,10 +37,12 @@ function Stack() {
     const [elements, setElements] = useState<number[]>([]);
     const [numberOfOperations, setNumberOfOperations] = useState(0);
     const [actionPending, setActionPending] = useState("");
+    const [isTopMarked, setIsTopMarked] = useState(false);
 
     useEffect(() => {
         AppController.onPush = push;
         AppController.onPop = pop;
+        AppController.onTop = top;
         AppController.onStackReload = reload;
     }, []);
 
@@ -77,6 +79,16 @@ function Stack() {
         setNumberOfOperations(i => i + 1);
     }
 
+    const top = () => {
+        setIsTopMarked(true);
+        AppController.stack.lock();
+
+        setTimeout(() => {
+            AppController.stack.unlock();
+           setIsTopMarked(false);
+        }, 2000);
+    }
+
     return(
         <Container usePushAnimation={actionPending === "push"} usePopAnimation={actionPending === "pop"}>
             <InformationPanel>
@@ -85,7 +97,7 @@ function Stack() {
             <Separator />
             {
                 elements.map((element, index) =>
-                    <StackElement index={index} actionPending={actionPending} key={index + "-" + numberOfOperations} value={element} />)
+                    <StackElement index={index} actionPending={actionPending} key={index + "-" + numberOfOperations} isMarked={index === 0 && isTopMarked} value={element} />)
             }
 
             {

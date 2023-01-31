@@ -3,10 +3,12 @@ import Random from "../Random/Random";
 
 class StackStructure {
     elements: number[];
+    operationsCounter: number;
     isLocked: boolean = false;
 
     constructor() {
         this.elements = [];
+        this.operationsCounter = 0;
 
         this.reload();
     }
@@ -16,13 +18,13 @@ class StackStructure {
         for (let i = 0; i < n; i++) {
             this.elements.push(Random.getRandomNumber(0, 50));
         }
-        console.log('randomized')
         this.reload();
     }
 
     reload() {
         setTimeout(() => {
             AppController.onStackReload();
+            AppController.onStackUpdate();
         });
     }
 
@@ -30,14 +32,20 @@ class StackStructure {
         if (this.isLocked) return;
 
         this.elements.push(value);
+        this.operationsCounter++;
 
         AppController.onPush(value);
+        AppController.onStackUpdate();
     }
 
     pop() {
         if (this.isLocked) return;
 
+        this.elements.pop();
+        this.operationsCounter++;
+
         AppController.onPop();
+        AppController.onStackUpdate();
     }
 
     lock() {
