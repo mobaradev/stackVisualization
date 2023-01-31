@@ -8,6 +8,8 @@ import AppController from "../../logic/AppController/AppController";
 import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../App";
 import Screen from "../../components/Screen/Screen";
+import LogoAuthor from "../../components/LogoAuthor/LogoAuthor";
+import AppVersion, {AppVersionContainer} from "../../components/AppVersion/AppVersion";
 
 const Wrapper = styled.div`
   width: 500px;
@@ -36,7 +38,14 @@ function StartView(props: any) {
                 <Button onClick={() => appContext.setScreenVisibility(1, true)}>About and help</Button>
                 <Clearfix />
                 <Separator />
+                <Center>
+                    <LogoAuthor />
+                </Center>
             </Wrapper>
+
+            <AppVersionContainer>
+                <AppVersion />
+            </AppVersionContainer>
         </Screen>
     )
 }
